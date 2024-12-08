@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Personal Cabinet | FinTech{% endblock %}
+
+{% block content %}
+<div class="content">
+  <h1 class="heading">Add Card</h1>
+</div>
+<div class="login_container">
+    <form method="POST" action="/add_card">
+        {{ form.hidden_tag() }}
+
+        <!-- Card Number -->
+        <div class="form-group">
+            <label for="card_num">{{ form.card_num.label }}</label>
+            {{ form.card_num(class="form-control", id="card_num") }}
+            {% for error in form.card_num.errors %}
+                <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        <!-- CVV -->
+        <div class="form-group">
+            <label for="cvv">{{ form.cvv.label }}</label>
+            {{ form.cvv(class="form-control", id="cvv") }}
+            {% for error in form.cvv.errors %}
+                <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        <!-- PIN -->
+        <div class="form-group">
+            <label for="pin">{{ form.pin.label }}</label>
+            {{ form.pin(class="form-control", id="pin") }}
+            {% for error in form.pin.errors %}
+                <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+        </div>
+
+        <!-- Expiration Date -->
+        <div class="form-group">
+            <label for="exp_date">{{ form.exp_date.label }}</label>
+            {{ form.exp_date(class="form-control", id="exp_date") }}
+            {% for error in form.exp_date.errors %}
+                <small class="text-danger">{{ error }}</small>
+            {% endfor %}
+        </div>
+        <div class="form-group">
+            {{form.submit(class="form-control", id="add__card__submit")}}
+        </div>
+    </form>
+</div>
+{% endblock %}

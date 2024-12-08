@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Personal Cabinet | FinTech{% endblock %}
+
+{% block content %}
+<div class="content">
+  <h1 class="heading">{{current_user.fname}}'s Cabinet</h1>
+</div>
+<div class="cabinet__wrapper">
+    <div class="cards__collection">
+
+        {%for card in current_user.cards%}
+        <div class="card__num">
+            <h2>{{card.card_num}}</h2><p>{{card.amount}}</p>
+        </div>
+        <div class="card__data__wrapper"style="display:flex; justify-content:space-between; width:191px">
+            <p>{{card.cvv}}</p> <p>{{card.exp_date}}</p>
+        </div>
+        <a href="{{url_for('transfer_money', card_num=card.card_num)}}">Transfer</a>
+        <!-- Render Transactions -->
+        <h1>Transactions:</h1>
+        {% for card_num, transaction_data in transactions.items() %}
+        <h3>Card: {{ card_num }}</h3>
+        
+        {% if transaction_data.sent or transaction_data.received %}
+            <h4>Sent Transactions:</h4>
+            {% if transaction_data.sent %}
+                <ul>
+                    {% for transaction in transaction_data.sent %}
+                        <li>ID: {{ transaction.id }} - Amount: {{ transaction.transfer_sum }} - Receiver: {{ transaction.receiver_card_num }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No sent transactions.</p>
+            {% endif %}
+
+            <h4>Received Transactions:</h4>
+            {% if transaction_data.received %}
+                <ul>
+                    {% for transaction in transaction_data.received %}
+                        <li>ID: {{ transaction.id }} - Amount: {{ transaction.transfer_sum }} - Receiver: {{ transaction.receiver_card_num }}</li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No received transactions.</p>
+            {% endif %}
+        {% else %}
+            <p>No transactions for this card.</p>
+        {% endif %}
+    {% endfor %}
+        
+        {%endfor%}
+
+
+        {% if current_user.is_authenticated %}
+        <br>
+        <a href="{{url_for('add_card')}}">Add Card</a>
+        {% else %}
+        <p>You must <a href="{{url_for('login')}}">log in</a> first</p>
+        {%endif%}
+    </div>
+</div>
+
+{% endblock %}

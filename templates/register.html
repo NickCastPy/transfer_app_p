@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Personal Cabinet | FinTech{% endblock %}
+
+{% block content %}
+<div class="content">
+  <h1 class="heading">Register</h1>
+</div>
+<div class="register__container">
+    <form method="POST" action="/register">
+        <!-- CSRF Token -->
+        {{ form.hidden_tag() }}
+
+        <!-- First Name -->
+        <div class="form-group">
+            <label for="fname">{{ form.fname.label }}</label>
+            {{ form.fname(class="form-control", id="fname") }}
+        </div>
+
+        <!-- Last Name -->
+        <div class="form-group">
+            <label for="lname">{{ form.lname.label }}</label>
+            {{ form.lname(class="form-control", id="lname") }}
+        </div>
+
+        <!-- Email -->
+        <div class="form-group">
+            <label for="email">{{ form.email.label }}</label>
+            {{ form.email(class="form-control", id="email") }}
+        </div>
+
+        <!-- Password -->
+        <div class="form-group">
+            <label for="password">{{ form.password.label }}</label>
+            {{ form.password(class="form-control", id="password") }}
+        </div>
+
+        <!-- Submit Button -->
+        <div class="form-group">
+            {{ form.submit(class="btn btn-primary") }}
+        </div>
+    </form>
+</div>    
+
+{% endblock %}

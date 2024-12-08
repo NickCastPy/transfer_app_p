@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% block title %}Transfer | FinTech{% endblock %}
+
+{% block content %}
+<div class="content">
+    <h1>Transfer Money</h1>
+</div>
+<h3>Amount: {{card.amount}}</h3>
+<div class="transfer__wrapper">
+    {%if current_user.is_authenticated%}
+    <form method="POST" action="/process_transfer">
+        {{ form.hidden_tag() }}
+            <!-- Email -->
+        <div>       
+            <label for="sender_card_num">Card Number:</label>
+            {{form.sender_card_num}}
+        </div>
+        <div>       
+            {{form.cvv.label}}
+            {{form.cvv}}
+        </div>
+        <div>       
+            {{form.pin.label}}
+            {{form.pin}}
+        </div>
+        <div>       
+            <label for="sender_card_num">Receiver's Card Number:</label>
+            {{form.receiver_card_num}}
+        </div>
+        <div>       
+            {{form.transfer_sum.label}}
+            {{form.transfer_sum}}
+        </div>
+        <div>       
+            {{form.submit}}
+        </div>
+
+
+    </form>
+    {%else%}
+    <p>You must <a href="{{url_for('login')}}">log in</a> first</p>
+    {%endif%}
+</div>
+{% endblock %}
